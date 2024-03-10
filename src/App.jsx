@@ -11,8 +11,8 @@ function App() {
           <div className=" text-4xl text-blue-600">New Contact</div>
           <div className="mt-5">
             <div className="relative rounded-md shadow-sm">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <span className="text-gray-500 sm:text-sm">
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 ">
+                <span className="text-gray-500 sm:text-sm border ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -30,9 +30,8 @@ function App() {
               </div>
               <input
                 type="text"
-                name="price"
-                id="price"
-                className="block w-full rounded-md border-0 py-5 pl-10 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                name="name"
+                className="block w-full rounded-md border border-black py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 placeholder="Enter Your Name..."
               />
             </div>
@@ -43,8 +42,8 @@ function App() {
                 <span className="text-gray-500 sm:text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20px"
-                    height="20px"
+                    width="18"
+                    height="18"
                     fill="currentColor"
                     className="bi bi-telephone-fill"
                     viewBox="0 0 16 16">
@@ -67,11 +66,19 @@ function App() {
           <div className="mt-5">
             <select
               name="gender"
-              className="w-full border ring-1 ring-inset ring-gray-300 focus:border-blue-600 p-3">
-              <option value="">Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              className="w-full border ring-2 rounded ring-inset ring-gray-600 focus:border-blue-600 p-3">
+              <option className="bg-white" value="">
+                Gender
+              </option>
+              <option className="bg-white" value="male">
+                Male
+              </option>
+              <option className="bg-white" value="female">
+                Female
+              </option>
+              <option className="bg-white" value="other">
+                Other
+              </option>
             </select>
           </div>
           <div className="mt-5">
