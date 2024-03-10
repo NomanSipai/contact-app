@@ -6,14 +6,31 @@ function App() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
+  const [contactData, setContactData] = useState([]);
   const mockApi = "https://65ed97e008706c584d9a24e0.mockapi.io/contact-app";
   const post = async () => {
-    await axios.post(mockApi, {
-      name: name,
-      phone: phone,
-      gender: gender,
-    });
+    await axios
+      .post(mockApi, {
+        name: name,
+        phone: phone,
+        gender: gender,
+      })
+      .then(async () => {
+        await axios
+          .get(mockApi)
+          .then((res) => {
+            setContactData(res.data);
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+        setName("");
+        setPhone("");
+        setGender("");
+      });
   };
+
   const handlePostData = () => {
     post();
   };
@@ -22,8 +39,8 @@ function App() {
       <div className=" bg-blue-600 p-5 mt-2 me-2 ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
         Contact App
       </div>
-      <div className="flex mt-20 justify-between w-3/4 me-auto ms-auto">
-        <div className=" w-11/12 me-28">
+      <div className="flex mt-20 justify-around w-11/12 me-auto ms-auto">
+        <div className="w-9/12 me-20">
           <div className=" text-4xl text-blue-600">New Contact</div>
           <div className="mt-5">
             <div className="relative rounded-md shadow-sm">
@@ -111,21 +128,27 @@ function App() {
             </button>
           </div>
         </div>
-        <div className="border-2 border-black bg-slate-50">
-          <div className="flex px-4 py-5 border-gray-500">
-            <div className="me-24">Name</div>
-            <div className="me-24">Phone</div>
-            <div className="me-24">Gender</div>
-            <div className="me-24">Edit</div>
+        <div className="rounded shadow shadow-gray-600 bg-slate-50 w-full p-5">
+          <div className="flex px-2 py-2 border-gray-300 justify-between w-full">
+            <div>Name</div>
+            <div>Phone</div>
+            <div>Gender</div>
+            <div>Edit</div>
             <div>Delete</div>
           </div>
-          <div className="flex border-t border-gray-500 py-5 px-4 text-start">
-            <div className=" me-24">Noman</div>
-            <div className="me-24">1234567890</div>
-            <div className="me-24">MAle</div>
-            <div className="me-24">Edit</div>
-            <div>Delete</div>
-          </div>
+          {contactData.map((item) => {
+            return (
+              <div
+                key={item.id}
+                className="flex border-t border-gray-300 px-2 py-2 justify-between w-full">
+                <div>{item.name}</div>
+                <div>{item.phone}</div>
+                <div>{item.gender}</div>
+                <div>Edit</div>
+                <div>Delete</div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
