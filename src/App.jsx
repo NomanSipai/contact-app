@@ -1,6 +1,22 @@
+import { useState } from "react";
 import "./App.css";
+import axios from "axios";
 
 function App() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [gender, setGender] = useState("");
+  const mockApi = "https://65ed97e008706c584d9a24e0.mockapi.io/contact-app";
+  const post = async () => {
+    await axios.post(mockApi, {
+      name: name,
+      phone: phone,
+      gender: gender,
+    });
+  };
+  const handlePostData = () => {
+    post();
+  };
   return (
     <div>
       <div className=" bg-blue-600 p-5 mt-2 me-2 ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
@@ -33,6 +49,8 @@ function App() {
                 name="name"
                 className="block w-full rounded-md border-2 border-gray-400 py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
                 placeholder="Enter Your Name..."
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
           </div>
@@ -59,14 +77,18 @@ function App() {
                 name="price"
                 id="price"
                 className="block w-full rounded-md border-2 border-gray-400 py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
-                placeholder="Enter Your Name..."
+                placeholder="Enter Your Phone..."
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
           </div>
           <div className="mt-5">
             <select
               name="gender"
-              className="w-full border-2 border-gray-400 rounded  p-3 bg-slate-50">
+              className="w-full border-2 border-gray-400 rounded  p-3 bg-slate-50"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}>
               <option className="bg-white" value="">
                 Gender
               </option>
@@ -82,7 +104,9 @@ function App() {
             </select>
           </div>
           <div className="mt-5">
-            <button className="bg-blue-600 pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-blue-800 shadow-gray-500 hover:shadow-lg">
+            <button
+              className="bg-blue-600 pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-blue-800 shadow-gray-500 hover:shadow-lg"
+              onClick={handlePostData}>
               ADD
             </button>
           </div>
@@ -95,10 +119,10 @@ function App() {
             <div className="me-24">Edit</div>
             <div>Delete</div>
           </div>
-          <div className="flex border-t border-gray-500 py-5 px-4">
-            <div className=" me-24">Name</div>
-            <div className="me-24">Phone</div>
-            <div className="me-24">Gender</div>
+          <div className="flex border-t border-gray-500 py-5 px-4 text-start">
+            <div className=" me-24">Noman</div>
+            <div className="me-24">1234567890</div>
+            <div className="me-24">MAle</div>
             <div className="me-24">Edit</div>
             <div>Delete</div>
           </div>
