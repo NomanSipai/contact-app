@@ -18,9 +18,6 @@ function App() {
 
   const getData = async () => {
     try {
-      toast.promise({
-        loading: "Saving...",
-      });
       const response = await axios.get(
         "https://65ed97e008706c584d9a24e0.mockapi.io/contact-app"
       );
@@ -49,14 +46,16 @@ function App() {
     }
   };
 
-  const handleDeleteContact = async (id) => {
+  const handleDeleteContact = async (contact) => {
     try {
       await axios.delete(
-        `https://65ed97e008706c584d9a24e0.mockapi.io/contact-app/${id}`
+        `https://65ed97e008706c584d9a24e0.mockapi.io/contact-app/${contact.id}`
       );
-      setContactData(contactData.filter((contact) => contact.id !== id));
+      setContactData(
+        contactData.filter((contact) => contact.id !== contact.id)
+      );
       getData();
-      toast.success("Contact Successfully Deleted!");
+      toast.success(`Contact ${contact.name} Successfully Deleted!`);
     } catch (error) {
       console.error("Error deleting contact:", error);
     }
@@ -202,12 +201,6 @@ function App() {
                 ADD
               </button>
             )}
-
-            {/* <button
-              className="bg-blue-600 pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-blue-800 shadow-gray-500 hover:shadow-lg"
-              onClick={handlePostData}>
-              ADD
-            </button> */}
           </div>
         </div>
         <div className="rounded shadow shadow-gray-600 bg-slate-50 w-full p-5">
@@ -266,7 +259,7 @@ function App() {
                     </td>
                     <td
                       className="px-6 py-4 whitespace-nowrap"
-                      onClick={() => handleDeleteContact(item.id)}>
+                      onClick={() => handleDeleteContact(item)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
