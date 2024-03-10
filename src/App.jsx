@@ -12,7 +12,7 @@ function App() {
           <div className="mt-5">
             <div className="relative rounded-md shadow-sm">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 ">
-                <span className="text-gray-500 sm:text-sm border ">
+                <span className="text-gray-500 sm:text-sm ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -31,7 +31,7 @@ function App() {
               <input
                 type="text"
                 name="name"
-                className="block w-full rounded-md border border-black py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-2 border-gray-400 py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
                 placeholder="Enter Your Name..."
               />
             </div>
@@ -58,7 +58,7 @@ function App() {
                 type="text"
                 name="price"
                 id="price"
-                className="block w-full rounded-md border-0 py-5 pl-10 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 "
+                className="block w-full rounded-md border-2 border-gray-400 py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
                 placeholder="Enter Your Name..."
               />
             </div>
@@ -66,7 +66,7 @@ function App() {
           <div className="mt-5">
             <select
               name="gender"
-              className="w-full border ring-2 rounded ring-inset ring-gray-600 focus:border-blue-600 p-3">
+              className="w-full border-2 border-gray-400 rounded  p-3 bg-slate-50">
               <option className="bg-white" value="">
                 Gender
               </option>
@@ -87,19 +87,19 @@ function App() {
             </button>
           </div>
         </div>
-        <div className="border-2 border-black">
-          <div className="flex">
-            <div className="me-32">Name</div>
-            <div>Phone</div>
-            <div className="me-32">Gender</div>
-            <div className="me-32">Edit</div>
+        <div className="border-2 border-black bg-slate-50">
+          <div className="flex px-4 py-5 border-gray-500">
+            <div className="me-24">Name</div>
+            <div className="me-24">Phone</div>
+            <div className="me-24">Gender</div>
+            <div className="me-24">Edit</div>
             <div>Delete</div>
           </div>
-          <div className="flex">
-            <div className=" me-32">Name</div>
-            <div>Phone</div>
-            <div className="me-32">Gender</div>
-            <div className="me-32">Edit</div>
+          <div className="flex border-t border-gray-500 py-5 px-4">
+            <div className=" me-24">Name</div>
+            <div className="me-24">Phone</div>
+            <div className="me-24">Gender</div>
+            <div className="me-24">Edit</div>
             <div>Delete</div>
           </div>
         </div>
