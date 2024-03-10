@@ -1,41 +1,100 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [gender, setGender] = useState("");
   const [contactData, setContactData] = useState([]);
-  const mockApi = "https://65ed97e008706c584d9a24e0.mockapi.io/contact-app";
-  const post = async () => {
-    await axios
-      .post(mockApi, {
-        name: name,
-        phone: phone,
-        gender: gender,
-      })
-      .then(async () => {
-        await axios
-          .get(mockApi)
-          .then((res) => {
-            setContactData(res.data);
-            console.log(res.data);
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-        setName("");
-        setPhone("");
-        setGender("");
+  const [newContactData, setNewContactData] = useState({
+    name: "",
+    phone: "",
+    gender: "",
+  });
+  const [selectedContact, setSelectedContact] = useState(null);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      toast.promise({
+        loading: "Saving...",
       });
+      const response = await axios.get(
+        "https://65ed97e008706c584d9a24e0.mockapi.io/contact-app"
+      );
+      setContactData(response.data);
+    } catch (error) {
+      console.error("Error fetching contacts:", error);
+    }
   };
 
-  const handlePostData = () => {
-    post();
+  const handlePostData = async () => {
+    if (newContactData.gender) {
+      try {
+        const response = await axios.post(
+          "https://65ed97e008706c584d9a24e0.mockapi.io/contact-app",
+          newContactData
+        );
+        setContactData([...contactData, response.data]);
+        setNewContactData({ name: "", phone: "", gender: "" });
+        getData();
+        toast.success("Contact Successfully added");
+      } catch (error) {
+        console.error("Error adding contact:", error);
+      }
+    } else {
+      toast.error("all field are required");
+    }
+  };
+
+  const handleDeleteContact = async (id) => {
+    try {
+      await axios.delete(
+        `https://65ed97e008706c584d9a24e0.mockapi.io/contact-app/${id}`
+      );
+      setContactData(contactData.filter((contact) => contact.id !== id));
+      getData();
+      toast.success("Contact Successfully Deleted!");
+    } catch (error) {
+      console.error("Error deleting contact:", error);
+    }
+  };
+  const handleEditContact = (item) => {
+    setSelectedContact(item);
+    setNewContactData({
+      name: item.name,
+      phone: item.phone,
+      gender: item.gender,
+    });
+  };
+  const updateContact = async () => {
+    try {
+      const response = await axios.put(
+        `https://65ed97e008706c584d9a24e0.mockapi.io/contact-app/${selectedContact.id}`,
+        newContactData
+      );
+
+      const updatedContacts = contactData.map((contact) =>
+        contact.id === selectedContact.id ? response.data : contact
+      );
+
+      setContactData(updatedContacts);
+      setNewContactData({ name: "", phone: "", gender: "" });
+      setSelectedContact(null);
+      getData();
+      toast.success("Contact updated successfully!");
+    } catch (error) {
+      console.error("Error updating contact:", error);
+      toast.error("Error updating contact");
+    }
   };
   return (
     <div>
+      <div>
+        <Toaster />
+      </div>
       <div className=" bg-blue-600 p-5 mt-2 me-2 ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
         Contact App
       </div>
@@ -66,8 +125,10 @@ function App() {
                 name="name"
                 className="block w-full rounded-md border-2 border-gray-400 py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
                 placeholder="Enter Your Name..."
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={newContactData.name}
+                onChange={(e) =>
+                  setNewContactData({ ...newContactData, name: e.target.value })
+                }
               />
             </div>
           </div>
@@ -95,8 +156,13 @@ function App() {
                 id="price"
                 className="block w-full rounded-md border-2 border-gray-400 py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
                 placeholder="Enter Your Phone..."
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                value={newContactData.phone}
+                onChange={(e) =>
+                  setNewContactData({
+                    ...newContactData,
+                    phone: e.target.value,
+                  })
+                }
               />
             </div>
           </div>
@@ -104,8 +170,10 @@ function App() {
             <select
               name="gender"
               className="w-full border-2 border-gray-400 rounded  p-3 bg-slate-50"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}>
+              value={newContactData.gender}
+              onChange={(e) =>
+                setNewContactData({ ...newContactData, gender: e.target.value })
+              }>
               <option className="bg-white" value="">
                 Gender
               </option>
@@ -121,11 +189,25 @@ function App() {
             </select>
           </div>
           <div className="mt-5">
-            <button
+            {selectedContact ? (
+              <button
+                className="bg-gray-600 pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-gray-800 shadow-gray-500 hover:shadow-lg"
+                onClick={updateContact}>
+                Update Contact
+              </button>
+            ) : (
+              <button
+                className="bg-blue-600 pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-blue-800 shadow-gray-500 hover:shadow-lg"
+                onClick={handlePostData}>
+                ADD
+              </button>
+            )}
+
+            {/* <button
               className="bg-blue-600 pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-blue-800 shadow-gray-500 hover:shadow-lg"
               onClick={handlePostData}>
               ADD
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="rounded shadow shadow-gray-600 bg-slate-50 w-full p-5">
@@ -170,7 +252,9 @@ function App() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {item.gender}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td
+                      className="px-6 py-4 whitespace-nowrap"
+                      onClick={() => handleEditContact(item)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -180,7 +264,9 @@ function App() {
                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
                       </svg>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td
+                      className="px-6 py-4 whitespace-nowrap"
+                      onClick={() => handleDeleteContact(item.id)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
