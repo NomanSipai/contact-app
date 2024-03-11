@@ -244,11 +244,18 @@ function App() {
                     <option value="other">Other</option>
                   </select>
                 </div>
-                <button
-                  className="bg-gray-600 w-full pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-gray-800 shadow-gray-500 hover:shadow-lg"
-                  onClick={updateContact}>
-                  Update Contact
-                </button>
+                <div className="text-center">
+                  <button
+                    className="bg-gray-600 pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-gray-800 shadow-gray-500 hover:shadow-lg"
+                    onClick={updateContact}>
+                    Update Contact
+                  </button>
+                  <button
+                    className="bg-gray-600 pt-2  ms-5 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-gray-800 shadow-gray-500 hover:shadow-lg"
+                    onClick={() => setSelectedContact(null)}>
+                    Back
+                  </button>
+                </div>
               </div>
             ) : (
               <button
