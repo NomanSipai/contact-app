@@ -94,11 +94,11 @@ function App() {
       <div>
         <Toaster />
       </div>
-      <div className=" bg-blue-600 p-5 mt-2 me-2 max-sm:w-11/12 max-sm:me-auto max-sm:ms-auto ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
+      <div className=" bg-blue-600 p-5 mt-2 me-2 ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
         Contact App
       </div>
-      <div className="flex mt-20 justify-around w-11/12 me-auto ms-auto max-md:block max-sm:block">
-        <div className="w-9/12 me-20 max-sm:me-auto max-sm:ms-auto">
+      <div className="flex mt-20 w-full justify-around max-md:block">
+        <div className="w-4/12 max-md:mx-auto ms-15">
           <div className=" text-4xl text-blue-600">New Contact</div>
           <div className="mt-5">
             <div className="relative rounded-md shadow-sm">
@@ -168,7 +168,7 @@ function App() {
           <div className="mt-5">
             <select
               name="gender"
-              className="w-full border-2 border-gray-400 rounded  p-3 bg-slate-50"
+              className="w-full border-2 border-gray-400 rounded max-sm:p-5  p-3 bg-slate-50"
               value={newContactData.gender}
               onChange={(e) =>
                 setNewContactData({ ...newContactData, gender: e.target.value })
@@ -203,7 +203,7 @@ function App() {
             )}
           </div>
         </div>
-        <div className="rounded shadow shadow-gray-600 bg-slate-50 max-sm:mt-5 max-sm:p-0 p-5">
+        <div className="rounded w-2/4 shadow shadow-gray-600 bg-slate-50 max-md:mt-5">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
