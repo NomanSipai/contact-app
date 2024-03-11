@@ -204,7 +204,7 @@ function App() {
           </div>
         </div>
         <div className="rounded w-2/4 max-md:w-full shadow shadow-gray-600 bg-slate-50 max-md:mt-20">
-          <table className="w-full max-md:w-full divide-y divide-gray-200">
+          <table className="w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th
