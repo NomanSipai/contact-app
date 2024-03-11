@@ -94,11 +94,11 @@ function App() {
       <div>
         <Toaster />
       </div>
-      <div className=" bg-blue-600 p-5 mt-2 me-2 ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
+      <div className=" bg-blue-600 p-5 mt-2 me-2 max-sm:w-11/12 max-sm:me-auto max-sm:ms-auto ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
         Contact App
       </div>
-      <div className="flex mt-20 justify-around w-11/12 me-auto ms-auto">
-        <div className="w-9/12 me-20">
+      <div className="flex mt-20 justify-around w-11/12 me-auto ms-auto max-md:block max-sm:block">
+        <div className="w-9/12 me-20 max-sm:me-auto max-sm:ms-auto">
           <div className=" text-4xl text-blue-600">New Contact</div>
           <div className="mt-5">
             <div className="relative rounded-md shadow-sm">
@@ -203,7 +203,7 @@ function App() {
             )}
           </div>
         </div>
-        <div className="rounded shadow shadow-gray-600 bg-slate-50 w-full p-5">
+        <div className="rounded shadow shadow-gray-600 bg-slate-50 max-sm:mt-5 max-sm:p-0 p-5">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
