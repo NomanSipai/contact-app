@@ -10,6 +10,11 @@ function App() {
     phone: "",
     gender: "",
   });
+  const [updateContacts, setUpdateContact] = useState({
+    name: "",
+    phone: "",
+    gender: "",
+  });
   const [selectedContact, setSelectedContact] = useState(null);
 
   useEffect(() => {
@@ -62,7 +67,7 @@ function App() {
   };
   const handleEditContact = (item) => {
     setSelectedContact(item);
-    setNewContactData({
+    setUpdateContact({
       name: item.name,
       phone: item.phone,
       gender: item.gender,
@@ -72,7 +77,7 @@ function App() {
     try {
       const response = await axios.put(
         `https://65ed97e008706c584d9a24e0.mockapi.io/contact-app/${selectedContact.id}`,
-        newContactData
+        updateContacts
       );
 
       const updatedContacts = contactData.map((contact) =>
@@ -80,7 +85,7 @@ function App() {
       );
 
       setContactData(updatedContacts);
-      setNewContactData({ name: "", phone: "", gender: "" });
+      setUpdateContact({ name: "", phone: "", gender: "" });
       setSelectedContact(null);
       getData();
       toast.success("Contact updated successfully!");
@@ -90,16 +95,18 @@ function App() {
     }
   };
   return (
-    <div>
+    <div className="min-h-screen bg-[#fbe3e6] pt-2">
       <div>
         <Toaster />
       </div>
-      <div className=" bg-blue-600 p-5 mt-2 me-2 ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
+      <div className=" bg-[#e03546] p-5  me-2 ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
         Contact App
       </div>
-      <div className="flex mt-20 w-full justify-around max-md:block max-md:w-4/5 max-md:mx-auto">
-        <div className="w-4/12 max-md:w-full ms-15">
-          <div className=" text-4xl text-blue-600">New Contact</div>
+      <div className="flex flex-wrap">
+        <div className=" w-full md:w-1/2 px-3">
+          <div className=" text-4xl text-[#e03546] font-semibold mb-5 mt-10 ">
+            New Contact
+          </div>
           <div className="mt-5">
             <div className="relative rounded-md shadow-sm">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 ">
@@ -189,22 +196,75 @@ function App() {
           </div>
           <div className="mt-5">
             {selectedContact ? (
-              <button
-                className="bg-gray-600 pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-gray-800 shadow-gray-500 hover:shadow-lg"
-                onClick={updateContact}>
-                Update Contact
-              </button>
+              <div className="bg-[#fbe3e6] shadow-md  px-5 py-5 w-96 rounded absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]">
+                <div className="mb-3 text-[#e03546] text-2xl">
+                  Update Contact
+                </div>
+                <div>
+                  <input
+                    className="block rounded w-full p-3 mb-3"
+                    placeholder="Enter Your Name ..."
+                    type="text"
+                    value={updateContacts.name}
+                    onChange={(e) =>
+                      setUpdateContact({
+                        ...updateContacts,
+                        name: e.target.value,
+                      })
+                    }
+                  />
+                  <input
+                    className="block rounded w-full p-3 mb-3"
+                    placeholder="Enter Your Phone ..."
+                    type="text"
+                    value={updateContacts.phone}
+                    onChange={(e) =>
+                      setUpdateContact({
+                        ...updateContacts,
+                        phone: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <select
+                    className="mb-3 rounded w-full p-3"
+                    name="gender"
+                    id=""
+                    value={updateContacts.gender}
+                    onChange={(e) =>
+                      setUpdateContact({
+                        ...updateContacts,
+                        gender: e.target.value,
+                      })
+                    }>
+                    <option value="">Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <button
+                  className="bg-gray-600 w-full pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-gray-800 shadow-gray-500 hover:shadow-lg"
+                  onClick={updateContact}>
+                  Update Contact
+                </button>
+              </div>
             ) : (
               <button
-                className="bg-blue-600 pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-blue-800 shadow-gray-500 hover:shadow-lg"
+                className="bg-[#e03546] w-full pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:opacity-75 shadow-gray-500 hover:shadow-lg"
                 onClick={handlePostData}>
-                ADD
+                Add Contact
               </button>
             )}
           </div>
         </div>
-        <div className="rounded w-2/4 max-md:w-full shadow shadow-gray-600 bg-slate-50 max-md:mt-20">
-          <table className="w-full divide-y divide-gray-200">
+        <div className="w-1/2 px-3">
+          <div className=" text-4xl text-[#e03546] font-semibold mb-5 mt-10">
+            Contact List
+          </div>
+
+          <table className="w-full shadow shadow-gray-600 bg-slate-50 divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th
