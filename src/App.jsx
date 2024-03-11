@@ -95,7 +95,7 @@ function App() {
         <Toaster />
       </div>
       <div className=" bg-blue-600 p-5 mt-2 me-2 ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
-        Contact App
+        Contact App com
       </div>
       <div className="flex mt-20 w-full justify-around max-md:block">
         <div className="w-4/12 max-md:mx-auto max-md:3/4 ms-15">
