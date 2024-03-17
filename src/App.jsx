@@ -94,15 +94,19 @@ function App() {
       toast.error("Error updating contact");
     }
   };
+  const handleBackBtn = () => {
+    setSelectedContact(null);
+  };
+
   return (
-    <div className="min-h-screen bg-[#fbe3e6] pt-2">
+    <div className={`min-h-screen pt-2 bg-[#fbe3e6]`}>
       <div>
         <Toaster />
       </div>
       <div className=" bg-[#e03546] p-5  me-2 ms-2 shadow shadow-gray-500 text-white text-xl font-medium">
         Contact App
       </div>
-      <div className="flex flex-wrap">
+      <div className="container mx-auto flex flex-wrap">
         <div className=" w-full md:w-1/2 px-3">
           <div className=" text-4xl text-[#e03546] font-semibold mb-5 mt-10 ">
             New Contact
@@ -196,83 +200,117 @@ function App() {
           </div>
           <div className="mt-5">
             {selectedContact ? (
-              <div className="bg-[#fbe3e6] shadow-md  px-5 py-5 w-96 rounded absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]">
-                <div className="mb-3 text-[#e03546] text-2xl">
-                  Update Contact
-                </div>
-                <div>
-                  <input
-                    className="block rounded w-full p-3 mb-3"
-                    placeholder="Enter Your Name ..."
-                    type="text"
-                    value={updateContacts.name}
-                    onChange={(e) =>
-                      setUpdateContact({
-                        ...updateContacts,
-                        name: e.target.value,
-                      })
-                    }
-                  />
-                  <input
-                    className="block rounded w-full p-3 mb-3"
-                    placeholder="Enter Your Phone ..."
-                    type="text"
-                    value={updateContacts.phone}
-                    onChange={(e) =>
-                      setUpdateContact({
-                        ...updateContacts,
-                        phone: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div>
-                  <select
-                    className="mb-3 rounded w-full p-3"
-                    name="gender"
-                    id=""
-                    value={updateContacts.gender}
-                    onChange={(e) =>
-                      setUpdateContact({
-                        ...updateContacts,
-                        gender: e.target.value,
-                      })
-                    }>
-                    <option value="">Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div className="text-center">
-                  <button
-                    className="bg-gray-600 pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-gray-800 shadow-gray-500 hover:shadow-lg"
-                    onClick={updateContact}>
-                    Update Contact
-                  </button>
-                  <button
-                    className="bg-gray-600 pt-2  ms-5 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:bg-gray-800 shadow-gray-500 hover:shadow-lg"
-                    onClick={() => setSelectedContact(null)}>
-                    Back
-                  </button>
+              <div className="fixed inset-0  flex items-center justify-center ">
+                <div className="bg-white p-8 rounded shadow-lg w-96">
+                  <h2 className="text-2xl font-bold mb-4">
+                    Update Contact Details
+                  </h2>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm text-gray-600 mb-2">
+                      Name:
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      className="w-full border p-2"
+                      value={updateContacts.name}
+                      onChange={(e) =>
+                        setUpdateContact({
+                          ...updateContacts,
+                          name: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm text-gray-600 mb-2">
+                      Phone:
+                    </label>
+                    <input
+                      type="text"
+                      id="phone"
+                      name="phone"
+                      className="w-full border p-2"
+                      value={updateContacts.phone}
+                      onChange={(e) =>
+                        setUpdateContact({
+                          ...updateContacts,
+                          phone: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label
+                      htmlFor="gender"
+                      className="block text-sm text-gray-600 mb-2">
+                      Gender:
+                    </label>
+                    <select
+                      id="gender"
+                      name="gender"
+                      className="w-full border p-2"
+                      value={updateContacts.gender}
+                      onChange={(e) =>
+                        setUpdateContact({
+                          ...updateContacts,
+                          gender: e.target.value,
+                        })
+                      }>
+                      <option value="">Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <div className="flex justify-center">
+                    <button
+                      type="button"
+                      className="bg-blue-500 text-white px-4 py-2 rounded me-5"
+                      onClick={updateContact}>
+                      Update
+                    </button>
+                    <button
+                      type="button"
+                      className="bg-blue-500 text-white px-4 py-2 rounded"
+                      onClick={handleBackBtn}>
+                      Back
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : (
               <button
-                className="bg-[#e03546] w-full pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-medium hover:opacity-75 shadow-gray-500 hover:shadow-lg"
+                className="bg-[#e03546] text-base flex items-center justify-center w-full pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-bold hover:opacity-75 shadow-gray-500 hover:shadow-lg"
                 onClick={handlePostData}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={25}
+                  height={20}
+                  className="bi bi-plus-circle fill-white me-1 font-bold"
+                  viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                </svg>
                 Add Contact
               </button>
             )}
           </div>
         </div>
-        <div className="w-1/2 px-3">
-          <div className=" text-4xl text-[#e03546] font-semibold mb-5 mt-10">
+        <div className="w-full md:w-1/2 px-3">
+          <div className="text-4xl text-[#e03546] font-semibold mb-5 mt-10">
             Contact List
           </div>
 
-          <table className="w-full shadow shadow-gray-600 bg-slate-50 divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="shadow hidden md:block shadow-gray-600 bg-slate-50 divide-y divide-gray-200">
+            <thead className="bg-gray-50 ">
               <tr>
                 <th
                   scope="col"
@@ -312,35 +350,80 @@ function App() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {item.gender}
                     </td>
-                    <td
-                      className="px-6 py-4 whitespace-nowrap"
-                      onClick={() => handleEditContact(item)}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        className="bi bi-pencil-fill cursor-pointer fill-green-800"
-                        viewBox="0 0 16 16">
-                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                      </svg>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <button
+                        className="p-2 bg-gray-200 rounded"
+                        onClick={() => handleEditContact(item)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          className="bi bi-pencil-fill cursor-pointer"
+                          viewBox="0 0 16 16">
+                          <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                        </svg>
+                      </button>
                     </td>
-                    <td
-                      className="px-6 py-4 whitespace-nowrap"
-                      onClick={() => handleDeleteContact(item)}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        className="bi bi-trash3-fill cursor-pointer fill-red-600"
-                        viewBox="0 0 16 16">
-                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-                      </svg>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <button
+                        className="p-2 rounded bg-[#fbe3e6]"
+                        onClick={() => handleDeleteContact(item)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          className="bi bi-trash3-fill fill-[#e03546]  cursor-pointer"
+                          viewBox="0 0 16 16">
+                          <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                        </svg>
+                      </button>
                     </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+            {contactData.map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  className="bg-white space-y-3 p-4 rounded-lg shadow">
+                  <div className="flex items-center space-x-2 text-sm">
+                    <div>{item.name}</div>
+                  </div>
+                  <div>{item.gender}</div>
+                  <div className="text-sm text-gray-700">{item.phone}</div>
+                  <div className="text-sm font-medium text-black">
+                    <button
+                      className="p-2 me-2 bg-gray-200 rounded"
+                      onClick={() => handleEditContact(item)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        className="bi bi-pencil-fill cursor-pointer"
+                        viewBox="0 0 16 16">
+                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                      </svg>
+                    </button>
+                    <button
+                      className="p-2 ms-2 rounded bg-[#fbe3e6]"
+                      onClick={() => handleDeleteContact(item)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        className="bi bi-trash3-fill fill-[#e03546]  cursor-pointer"
+                        viewBox="0 0 16 16">
+                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
