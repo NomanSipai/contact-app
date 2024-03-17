@@ -179,7 +179,7 @@ function App() {
           <div className="mt-5">
             <select
               name="gender"
-              className="w-full border-2 border-gray-400 rounded max-md:p-5  p-3 bg-slate-50"
+              className="w-full border-2 border-gray-400 rounded p-5  bg-slate-50"
               value={newContactData.gender}
               onChange={(e) =>
                 setNewContactData({ ...newContactData, gender: e.target.value })
