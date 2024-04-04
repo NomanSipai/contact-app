@@ -141,7 +141,7 @@ function App() {
               <input
                 type="text"
                 name="name"
-                className="block w-full rounded-md border-2 border-gray-400 py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
+                className="block w-full rounded-md outline-none py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
                 placeholder="Enter Your Name..."
                 value={newContactData.name}
                 onChange={(e) =>
@@ -169,10 +169,10 @@ function App() {
                 </span>
               </div>
               <input
-                type="text"
+                type="tel"
                 name="price"
                 id="price"
-                className="block w-full rounded-md border-2 border-gray-400 py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
+                className="block w-full rounded-md outline-none py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
                 placeholder="Enter Your Phone..."
                 value={newContactData.phone}
                 maxLength={10}
@@ -183,7 +183,7 @@ function App() {
           <div className="mt-5">
             <select
               name="gender"
-              className="w-full border-2 border-gray-400 rounded p-5  bg-slate-50"
+              className="w-full outline-none rounded p-5  bg-slate-50"
               value={newContactData.gender}
               onChange={(e) =>
                 setNewContactData({
