@@ -15,6 +15,7 @@ function App() {
     phone: "",
     gender: "",
   });
+
   const [selectedContact, setSelectedContact] = useState(null);
 
   useEffect(() => {
@@ -29,6 +30,13 @@ function App() {
       setContactData(response.data);
     } catch (error) {
       console.error("Error fetching contacts:", error);
+    }
+  };
+
+  const handlePhoneChange = (e) => {
+    const re = /^[0-9\b]+$/;
+    if (e.target.value == "" || re.test(e.target.value)) {
+      setNewContactData({ ...newContactData, phone: e.target.value });
     }
   };
 
@@ -167,12 +175,8 @@ function App() {
                 className="block w-full rounded-md border-2 border-gray-400 py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
                 placeholder="Enter Your Phone..."
                 value={newContactData.phone}
-                onChange={(e) =>
-                  setNewContactData({
-                    ...newContactData,
-                    phone: e.target.value,
-                  })
-                }
+                maxLength={10}
+                onChange={handlePhoneChange}
               />
             </div>
           </div>
