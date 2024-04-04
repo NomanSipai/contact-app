@@ -40,6 +40,13 @@ function App() {
     }
   };
 
+  const handleUpdatePhoneChange = (e) => {
+    const re = /^[0-9\b]+$/;
+    if (e.target.value == "" || re.test(e.target.value)) {
+      setUpdateContact({ ...updateContact, phone: e.target.value });
+    }
+  };
+
   const handlePostData = async () => {
     if (newContactData.gender) {
       try {
@@ -191,24 +198,20 @@ function App() {
                   gender: e.target.value,
                 })
               }>
-              <option className="bg-white" value="">
-                Gender
-              </option>
-              <option className="bg-white" value="male">
-                Male
-              </option>
-              <option className="bg-white" value="female">
-                Female
-              </option>
-              <option className="bg-white" value="other">
-                Other
-              </option>
+              <option value="">Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
             </select>
           </div>
           <div className="mt-5">
-            {selectedContact ? (
+            {selectedContact && (
               <div className="fixed inset-0  flex items-center justify-center ">
-                <div className="bg-white p-8 rounded shadow-lg w-96">
+                <div
+                  onClick={handleBackBtn}
+                  className="fixed inset-0 bg-black bg-opacity-75 transition-opacity"
+                />
+                <div className="bg-white p-8 rounded relative shadow-lg w-96">
                   <h2 className="text-2xl font-bold mb-4">
                     Update Contact Details
                   </h2>
@@ -243,13 +246,9 @@ function App() {
                       id="phone"
                       name="phone"
                       className="w-full border p-2"
+                      maxLength={10}
                       value={updateContacts.phone}
-                      onChange={(e) =>
-                        setUpdateContact({
-                          ...updateContacts,
-                          phone: e.target.value,
-                        })
-                      }
+                      onChange={handleUpdatePhoneChange}
                     />
                   </div>
 
@@ -280,35 +279,34 @@ function App() {
                   <div className="flex justify-center">
                     <button
                       type="button"
-                      className="bg-blue-500 text-white px-4 py-2 rounded me-5"
+                      className="bg-[#e03546] text-white px-4 py-2 rounded me-5"
                       onClick={updateContact}>
                       Update
                     </button>
                     <button
                       type="button"
-                      className="bg-blue-500 text-white px-4 py-2 rounded"
+                      className="font-medium text-[#e03546] ms-5"
                       onClick={handleBackBtn}>
-                      Back
+                      Cancel
                     </button>
                   </div>
                 </div>
               </div>
-            ) : (
-              <button
-                className="bg-[#e03546] text-base flex items-center justify-center w-full pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-bold hover:opacity-75 shadow-gray-500 hover:shadow-lg"
-                onClick={handlePostData}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={25}
-                  height={20}
-                  className="bi bi-plus-circle fill-white me-1 font-bold"
-                  viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                </svg>
-                Add Contact
-              </button>
             )}
+            <button
+              className="bg-[#e03546] text-base flex items-center justify-center w-full pt-2 pb-2 pe-4 ps-4 text-center rounded text-white font-bold hover:opacity-75 shadow-gray-500 hover:shadow-lg"
+              onClick={handlePostData}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={25}
+                height={20}
+                className="bi bi-plus-circle fill-white me-1 font-bold"
+                viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+              </svg>
+              Add Contact
+            </button>
           </div>
         </div>
         <div className="w-full md:w-1/2 px-3">
@@ -316,7 +314,7 @@ function App() {
             Contact List
           </div>
           <div className=" overflow-auto">
-            <table className="w-full bg-slate-50 divide-y divide-gray-200">
+            <table className="w-full bg-slate-50 ">
               <thead className="bg-gray-50 ">
                 <tr>
                   <th
@@ -346,7 +344,7 @@ function App() {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white ">
                 {contactData.map((item) => {
                   return (
                     <tr key={item.id}>
