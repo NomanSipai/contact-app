@@ -161,6 +161,7 @@ function App() {
                 className="block w-full rounded-md outline-none py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
                 placeholder="Enter Your Name..."
                 value={newContactData.name}
+                autoComplete="false"
                 onChange={(e) =>
                   setNewContactData({ ...newContactData, name: e.target.value })
                 }
@@ -192,6 +193,7 @@ function App() {
                 className="block w-full rounded-md outline-none py-5 pl-10 pr-20 text-gray-900  placeholder:text-gray-400 sm:text-sm sm:leading-6 bg-slate-50"
                 placeholder="Enter Your Phone..."
                 value={newContactData.phone}
+                autoComplete="false"
                 maxLength={10}
                 onChange={handlePhoneChange}
               />
@@ -236,6 +238,7 @@ function App() {
                       id="name"
                       className="w-full border p-2"
                       value={updateContacts.name}
+                      autoComplete="false"
                       onChange={(e) =>
                         setUpdateContact({
                           ...updateContacts,
@@ -256,6 +259,7 @@ function App() {
                       id="phone"
                       name="phone"
                       className="w-full border p-2"
+                      autoComplete="false"
                       maxLength={10}
                       value={updateContacts.phone}
                       onChange={handleUpdatePhoneChange}
