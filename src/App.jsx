@@ -117,7 +117,7 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen pt-2 bg-[#fbe3e6]`}>
+    <div className={`min-h-screen container px-4 mx-auto pt-2 bg-[#fbe3e6]`}>
       <div>
         <Toaster />
         {alertPopUp && (
